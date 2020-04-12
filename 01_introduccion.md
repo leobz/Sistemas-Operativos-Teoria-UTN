@@ -33,7 +33,7 @@ Busqueda(en la memoria) - Decodificacion - Ejecucion - PC +1
 * Se almacena el resultado de la operacion en memoria  
 
 
-##Registros del CPU
+## Registros del CPU
 
 ### Registros Visibles por el usuario
 >Generalmente son registros de datos, de direccion de memoria y codigos de condicion.
