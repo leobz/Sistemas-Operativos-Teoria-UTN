@@ -84,9 +84,12 @@ Registro de condiciones y estado:
 > Es una parte del Sistema Operativo, la rutina a utilizar variara segun la naturaleza de la interrupcion.
 
 
-### Tipos de Interrupciones
-* Mascarables: Se pueden deshabilitar. Pueden ser postergadas (ej: una lectura de disco). 
-* No mascarables: Siempre habilitadas. No pueden ser postergadas (ej: TODO).
+### Clasificacion de Interrupciones
+* Enmascarables: Se pueden deshabilitar. Pueden ser postergadas (ej: una lectura de disco). 
+* No Enmascarables: Siempre habilitadas. No pueden ser postergadas (ej: TODO).
+* Sincronas: Provocadas por instrucciones internas de un programa
+* Asincronas: Provocadas por eventos externos al programa. Su objetivo es notificar al SO algun cambio en el ambiente.
+
 
 ### Secuencia de una Interrupcion:
 * En el procesador:
@@ -103,7 +106,7 @@ Registro de condiciones y estado:
 
 ### Multiples interrupciones:
 Existe un manejador de interrupciones que ejecuta las instrucciones en orden segun un criterio  
-Criterio de manejo de Interrupciones: Por prioridad o por fecha de llegada
+Criterio de manejo de Interrupciones: Por prioridad o por fecha de llegada(secuencial)
 
 
 # Sistemas operativos
