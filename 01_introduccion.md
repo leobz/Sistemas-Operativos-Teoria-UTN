@@ -142,8 +142,8 @@ Desde la perspectiva del usuario, **permite la utilización de los recursos**.
 
 ## Kernel
 Es el **núcleo del Sistema Operativo**, y la parte del software que ejecuta en **modo privilegiado**.  
-Entre muchas cosas, se encarga de **permitir la conexión de los periféricos** al sistema, **administrar la memoria** para que se utilice de manera eficiente, **planificar los procesos** y asignarles tiempo de procesamiento, etc.
-
+Entre muchas cosas, se encarga de **permitir la conexión de los periféricos** al sistema, **administrar la memoria** para que se utilice de manera eficiente, **planificar los procesos** y asignarles tiempo de procesamiento, etc.  
+Además es importante mencionar la existencia **modo kernel** y un **modo usuario** tanto en el **procesador** cómo en el **sistema operativo**, como una doble proteccion.
 
 ## Llamadas al sistema (Syscalls)
 Son **funciones pertenecientes al kernel**, incluyen **instrucciones privilegiadas** que **solo son permitidas al SO**.  
@@ -166,7 +166,8 @@ Ejemplo: printf (que imprime en pantalla) usa una syscall para linux (write) y o
 * Solo ejecuta instrucciones **no privilegiadas**. (Ej: sumar, restar, acceder a zonas de memoria asignadas, etc)
 * Las puede ejecutar el usuario.
 
-Si un programador necesita que el programa ejecute una instrucción privilegiada, le tiene que pedir al sistema operativo que lo haga mediante una **syscall**.
+Si un programador necesita que el programa ejecute una instrucción privilegiada, le tiene que pedir al sistema operativo que lo haga mediante una **syscall**.  
+
 
 #### Cambio de modo (CPU):
 Se producen cuando el procesador pasa de **modo usuario** a **modo kernel** y viceversa.
