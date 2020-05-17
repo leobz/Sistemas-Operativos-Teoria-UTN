@@ -1,5 +1,5 @@
 ### Hilo
-(Ver)
+Es un componente de un proceso.
 
 ## Mono hilo
 (ver)
