@@ -142,7 +142,9 @@ Desde la perspectiva del usuario, **permite la utilización de los recursos**.
 
 
 ## Kernel
-TODO
+Es el **núcleo del Sistema Operativo**, y la parte del software que ejecuta en **modo privilegiado**.
+Entre muchas cosas, se encarga de **permitir la conexión de los periféricos** al sistema, **administrar la memoria** para que se utilice de manera eficiente, **planificar los procesos** y asignarles tiempo de procesamiento, etc.
+
 
 ## Llamadas al sistema (Syscalls)
 Son **funciones pertenecientes al kernel**, incluyen **instrucciones privilegiadas** que **solo son permitidas al SO**.
@@ -180,3 +182,4 @@ https://es.wikipedia.org/wiki/Ciclo_de_instrucci%C3%B3n
 https://es.wikipedia.org/wiki/Registro_MDR
 https://es.wikipedia.org/wiki/Registro_(hardware)
 https://postparaprogramadores.com/wrapper-informatica/
+https://www.youtube.com/watch?v=6EI3Ig7efWY
