@@ -1,6 +1,6 @@
 **Resumen sobre Sistemas Operativos**, Leonel Bazán Otin.
 
-# Capitulo 1: Introducción a los Sistemas Operativos.
+# Capítulo 1: Introducción a los Sistemas Operativos.
 Conceptos básicos para entender los sistemas operativos.
 
 **Arquitectura del Computador**
@@ -67,7 +67,7 @@ Generalmente son registros de:
 * **Códigos de Condición**: contiene indicadores o flags.
 * **Dirección**:
 	* Punteros de segmento: Apunta al inicio de un segmento.
-	* Registro índice: Contiene un índice que se suma a una base del segmento, para obtener la direccion completa.
+	* Registro índice: Contiene un índice que se suma a una base del segmento, para obtener la dirección completa.
 	* Puntero de pila: Apunta a la cima de una pila
 
 ##### * Control y Estado
@@ -76,7 +76,7 @@ Controlan el funcionamiento del CPU, no los ve el usuario.
 Los **Registros de Control** son los registros de:
 
 * **Program Counter** (PC): Dirección de la próxima instrucción a leer.
-* **Instrucción** (IR): Contiene la última instrucción leida.
+* **Instrucción** (IR): Contiene la última instrucción leída.
 * **Dirección de Memoria** (RDIM): Especifica la dirección de memoria de la siguiente lectura/escritura.
 * **Datos de Memoria** (RDRAM): Contiene los datos que se leen/escribirán en memoria
 * **TODO**: agregar RDIE/S RDAE/S
@@ -88,12 +88,12 @@ Los **Registros de Control** son los registros de:
 
 
 ## Interrupciones
-Son mecanismos por el cual otros módulos(Memoria y E/S) pueden interrumpir el secuenciamiento normal del procesador.
+Son mecanismos por el cual otros módulos(Memoria y E/S) pueden interrumpir la secuencia normal del procesador.
 Todas las interrupciones **están dirigidas al procesador**.
 
 ### Tipos de Interrupciones
 
-* **De programa**: Resultado de la ejecución de una instrucción(desbodamiento, división por cero,etc).
+* **De programa**: Resultado de la ejecución de una instrucción(desbordamiento, división por cero,etc).
 * **Por temporizador**: Permite al SO realizar ciertas funciones de forma regular.
 * **De E/S**: Generada por un controlador  de E/S para indicar el éxito o el error de una operación.
 * **Por fallo de Hardware**: Ejemplo un fallo en la energía.
@@ -112,14 +112,14 @@ En caso de **múltiples interrupciones**, el manejador las ejecutará en orden s
 ### Clasificación de Interrupciones
 * **Enmascarables**: Se pueden deshabilitar. Pueden ser postergadas (ej: una lectura de disco).
 * **No Enmascarables**: Siempre habilitadas. No pueden ser postergadas (ej: fallo crítico de energía).
-* **Síncronas**: Provocadas por instrucciones internas de un programa
+* **Síncronas**: Provocadas por instrucción es internas de un programa
 * **Asíncronas**: Provocadas por eventos externos al programa. Su objetivo es notificar al SO algún cambio en el ambiente.
 
 
 ### Secuencia de una Interrupción:
 En el **procesador**:
 * Se **genera** interrupción
-* **Finaliza** instrucción actual (No se puede interrumpir la instruccion ACTUAL)
+* **Finaliza** instrucción actual (No se puede interrumpir la instrucción ACTUAL)
 * **Determina** si se atiende interrupcion
 * **Guarda** el PC y PWS con el estado actual (En realidad TODOS los registros)
 * Carga el **manejador de interrupciones**
@@ -161,10 +161,10 @@ Ejemplo: printf (que imprime en pantalla) usa una syscall para linux (write) y o
 * **Solo las puede ejecutar el S.O**.
 
 #### Modo Usuario:
-* Solo ejecuta instrucciones **no priviligiadas**. (Ej: sumar, restar, acceder a zonas de memoria asignadas, etc)
-* Las pueden ejecutar el usuarios.
+* Solo ejecuta instrucciones **no privilegiadas**. (Ej: sumar, restar, acceder a zonas de memoria asignadas, etc)
+* Las puede ejecutar el usuario.
 
-Si un programador necesita que el programa ejecute una instruccion privilegiada, le tiene que pedir al sistema operativo que lo haga mediante una **syscall**.
+Si un programador necesita que el programa ejecute una instrucción privilegiada, le tiene que pedir al sistema operativo que lo haga mediante una **syscall**.
 
 #### Cambio de modo (CPU):
 Se producen cuando el procesador pasa de **modo usuario** a **modo kernel** y viceversa.
