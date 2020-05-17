@@ -1,55 +1,44 @@
-Existe un modo Kernel y un modo usuario tanto en El procesador y otro en el sistema operativo, como una doble proteccion.
+- - -
+- - -
+
+# Introducción
+## Diferencia entre Programa y Proceso
+* **Programa** :Secuencia de instruccines compiladas a código maquina. **No siempre está en ejecucion**.
+* **Procesos**: Programa que **está en ejecución**, en conjunto con sus **recursos asignados** (memoria, variables de estado, etc)
 
 
-### Programa:
+## Tipos de Sistemas Operativos
+*  **Monoprogramados**: Solo permiten que un proceso se ejecute en el tiempo.
+*  **Multiprogramados**: Se ejecutan varios procesos en un **intervalo de tiempo**. El procesador solo puede ejecutar un proceso a la vez.
 
-Secuencia de instruccines compiladas a codigo maquina. No siempre esta en ejecucion.
+Los sistemas **multiprogramados** permiten la **ejecución concurrente**, que aprovecha que cuando un proceso se pone en espera, deja de usar el CPU, y entonces pone algun proceso que estaba en la cola de listos mientras tanto.
 
-#### Ejecucion Ooncurrente
-
-Dos o mas programas ejecutandose en un intervalo de tiempo
-
-
-#### Sistemas Monoprogramados
-
-Un solo programa se ejecuta en el tiempo
-
-
-
-
-
-
-#### Sistemas Multiprogramados
-
-NNO ES LO mismo que MULTIPROCESAMIENTO
-Se ejecutan varios programas en el tiempo (Aunque el procesador solo puede ejecutar uno a la vez).
-
-Cuando uno de los programas esta en espera, uno o mas programas aprovechan esa espera para ejecutarse. Solo se puede ejecutar un solo programa a la vez, pero se pueden ejecutar varios en un intervalo de tiempo.
+**NOTA:** **Multiprogramación** NO ES LO MISMO que **multiprocesamiento**.
 
 
 #### Multiprocesamiento
-Multiples procesadores (Es decir en el mismo instante dos o mas programas se pueden ejecutar al mismo tiempo). Diferente a multiprogramacion.
+Ocurre **cuando múltiples procesadores** ejecutan múltiples procesos en el **mismo instante de tiempo**.
 
 
-### Procesos
-Programa que esta en ejecucion en conjunto con sus recursos asignados (memoria, variables de estado, etc)
 
-#### Estructuras de un Proceso
+## Estructura de un Proceso (Imagen del proceso)
 
-* Codigo:
-	Espacio asignado para almacenar la secuencia de instrucciones del programa.
-* Datos:
-	Espacio asignado para almacenar variables GLOBALES.
-* Pila(Stack):
-	Espacio usado para llamadas a funcion, parametros y 
-	variables LOCALES.
-	Se borran los datos despues de salir del contexto de una funcion
-* HEAP (Cumulo):
-	Espacio asignado para el uso de memoria dinamica. Nota: Es donde reserva el malloc(), y hay que borrar los datos manualmente en C.
+* **Código**:
+	Espacio asignado para almacenar la **secuencia de instrucciones del programa**.
+* **Datos**:
+	Espacio asignado para almacenar **variables GLOBALES**.
+* **Pila(Stack)**:
+	Espacio usado para **llamadas a funcion**, **parametros** y **variables LOCALES**.
+	Se **borran los datos** despues de salir del contexto de la función
+* **Heap**:
+	Espacio asignado para el uso de **memoria dinamica**. Nota: La memoria dinámica es el lugar donde reserva el malloc(), en el lenguaje C hay que liberar el espacio reservado manualmente .
 
-#### Procesos en Multiprogramacion
+- - -
+- - -
 
-#### Contexto de Ejecucion de un proceso
+# Procesos en Multiprogramacion
+
+#### Contexto de Ejecución de un proceso
 
 Cuando se cambia de un programa a otro, se debe guardar el contexto(estado del cpu) del procesador y guardarse en memoria para luego cuando al retomarse buscar el contexto y restaurlo.
 
