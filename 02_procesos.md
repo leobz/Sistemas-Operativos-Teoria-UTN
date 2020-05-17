@@ -116,7 +116,7 @@ Ejemplo send()
 * Bloqueado
 
 * Exit/Finalizado:
-	Solo se conserva el PCB que guarda el valo,r de Retorno y se borran todos recurso de memoria.
+	Solo se conserva el PCB que guarda el valor de Retorno y se borran todos recurso de memoria.
 	Cuando se toma el valor de Retorno, se borra el PCB.
 
 ### Creacion de un Proceso

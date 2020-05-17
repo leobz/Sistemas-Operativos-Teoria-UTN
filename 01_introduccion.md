@@ -1,7 +1,7 @@
 **Resumen sobre Sistemas Operativos**, Leonel Bazán Otin.
 
 # Capitulo 1: Introducción a los Sistemas Operativos.
-Conceptos básicos para entender los sistemas operativos:
+Conceptos básicos para entender los sistemas operativos.
 
 **Arquitectura del Computador**
 * Firmware
@@ -13,6 +13,11 @@ Conceptos básicos para entender los sistemas operativos:
 * Interrupciones
 
 **Sistemas Operativos**
+* Sistemas Operativos
+* Kernel
+* Llamadas al sistema (syscalls)
+* Envoltorios (Wrappers)
+* Modos de ejecución (Kernel y Usuario)
 
 
 #Arquitectura del computador
@@ -163,12 +168,14 @@ Si un programador necesita que el programa ejecute una instruccion privilegiada,
 
 #### Cambio de modo (CPU):
 Se producen cuando el procesador pasa de **modo usuario** a **modo kernel** y viceversa.
-El CPU **pasa a modo kernel** cuando ocurre una **interrupcion** o una **syscall**.
+El CPU **pasa a modo kernel** cuando ocurre una **interrupción** o una **syscall**.
 
 
 * * *
+Ésta es una recopilación de apuntes tomados del curso de Sistemas Operativos, de la Universidad Tecnológica Nacional (UTN), Factultad Regional Buenos Aires.
 
-Referencias:
+Además se incluyen datos obtenidos de las siguientes **referencias**:
+
 https://es.wikipedia.org/wiki/Ciclo_de_instrucci%C3%B3n
 https://es.wikipedia.org/wiki/Registro_MDR
 https://es.wikipedia.org/wiki/Registro_(hardware)
