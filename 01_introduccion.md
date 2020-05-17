@@ -1,29 +1,29 @@
-Resumen sobre Sistemas Operativos, Leonel Bazan Otin.
-# Capitulo 1: Introduccion
+**Resumen sobre Sistemas Operativos**, Leonel Bazán Otin.
+# Capitulo 1: Introducción a los Sistemas Operativos.
 
+# Conceptos básicos de los sistemas operativos.
+## Arquitectura del computador
 
-# Arquitectura del computador
+### Firmware
+**Software de arranque**, tiene directa interacción con el hardware. Generalmente se almacena en la [ROM(Memoria de solo lectura)](https://es.wikipedia.org/wiki/Memoria_de_solo_lectura).
 
+**Funciones:**
+* **Inicializa** desde los **registros del CPU**, hasta los **controladores de los dispositivos**.
+* **Carga el kernel del SO en memoria**, para otorgarle el control.
 
-## Firmware
->Programa de arranque. Se almacena generalmente en la ROM (Read Only Memory).  
+### Memoria de acceso aleatorio (RAM)
+Es la **única área de almacenamiento** a la cual puede acceder el CPU **directamente**.
 
-* Inicializa desde los registros del CPU, hasta los controladores de los dispositivos.
-* Carga el kernel del SO en memoria, para otorgarle el control.
+El procesador puede:
+* Mover **palabras**(cadenas finitas de bits) **desde la RAM** y cargarlas a sus **registros** mediante la instrucción **LOAD**.
+* Mover el contenido de sus registros **hacia la RAM** mediante la instrucción **STORE**.
 
-## RAM (Random Access Memory)
->Unica area de almacenamiento a la cual puede acceder el CPU directamente.
+### Controladora de Memoria
+Se encarga de administrar los ciclos de memoria y gestionar el acceso, ya que los dispositivos y la CPU **compiten para acceder a la memoria**
 
-* El procesador puede mover palabras desde la RAM y cargarla a sus registros internos mediante la instruccion LOAD.  
-* Tambien puede mover el contenido de sus registros hacia la RAM mediante la instruccion STORE.
-
-
-## Competencia por la memoria
-Los dispositivos y la CPU compiten para acceder a la memoria, para esto, dependen de la Controladora de Memoria que administra los ciclos de memoria.
-
-### Jerarquia de memoria
-Implica un orden por tiempo de acceso, costo y capacidad de almacenamiento
-
+### Jerarquía de memoria
+Es la organización piramidal de la memoria en niveles. Los criterios son **velocidad**, **coste** y **capacidad**.
+![jerarquia-de-memoria](https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Jerarquia_memoria.png/450px-Jerarquia_memoria.png)
 ## Ciclo del CPU (Arquitectura Von Neumann)
 Busqueda(en la memoria) - Decodificacion - Ejecucion - PC +1 
 
