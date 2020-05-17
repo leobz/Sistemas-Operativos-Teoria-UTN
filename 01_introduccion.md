@@ -20,16 +20,16 @@ Conceptos básicos para entender los sistemas operativos.
 * Modos de ejecución (Kernel y Usuario)
 
 
-#Arquitectura del computador
+# Arquitectura del computador
 
-### Firmware
+## Firmware
 **Software de arranque**, tiene directa interacción con el hardware. Generalmente se almacena en la [ROM(Memoria de solo lectura)](https://es.wikipedia.org/wiki/Memoria_de_solo_lectura).
 
 **Funciones:**
 * **Inicializa** desde los **registros del CPU**, hasta los **controladores de los dispositivos**.
 * **Carga el kernel del SO en memoria**, para otorgarle el control.
 
-### Memoria de acceso aleatorio (RAM)
+## Memoria de acceso aleatorio (RAM)
 Es la **única área de almacenamiento** a la cual puede acceder el CPU **directamente**.
 
 El procesador puede:
@@ -39,12 +39,12 @@ El procesador puede:
 ### Controladora de Memoria
 Se encarga de administrar los ciclos de memoria y gestionar el acceso, ya que los dispositivos y la CPU **compiten para acceder a la memoria**
 
-### Jerarquía de memoria
+## Jerarquía de memoria
 Es la organización piramidal de la memoria en niveles. Los criterios son **velocidad**, **coste** y **capacidad**.
 ![jerarquia-de-memoria](https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Jerarquia_memoria.png/450px-Jerarquia_memoria.png)
 
 
-### Ciclo de instrucción (Arquitectura Von Neumann)
+## Ciclo de instrucción (Arquitectura Von Neumann)
 Es el **período que tarda** la CPU en **ejecutar una instrucción** de lenguaje máquina.
 Se basa en la primicia **fetch-decode-execute**, es decir:
 
@@ -55,12 +55,12 @@ Se basa en la primicia **fetch-decode-execute**, es decir:
 
 
 
-### Registros del CPU
+## Registros del CPU
 Un registro es una memoria de alta velocidad y poca capacidad, integrada en el microprocesador, que permite guardar transitoriamente y acceder a valores muy usados, generalmente en operaciones matemáticas.
 
 ### Tipos de Registros
 
-##### * Visibles por el usuario
+### * Visibles por el Usuario:
 Generalmente son registros de:
 
 * **Datos**: se usan para guardar números enteros.
@@ -70,7 +70,7 @@ Generalmente son registros de:
 	* Registro índice: Contiene un índice que se suma a una base del segmento, para obtener la dirección completa.
 	* Puntero de pila: Apunta a la cima de una pila
 
-##### * Control y Estado
+### * Control y Estado:
 Controlan el funcionamiento del CPU, no los ve el usuario.
 
 Los **Registros de Control** son los registros de:
@@ -81,14 +81,12 @@ Los **Registros de Control** son los registros de:
 * **Datos de Memoria** (RDRAM): Contiene los datos que se leen/escribirán en memoria
 * **TODO**: agregar RDIE/S RDAE/S
 
-
-
 **Registro de estado**:
 * **Palabra de estado del programa** (PSW): Contiene información sobre el estado de un programa. Además contiene un campo de error y un código de condición.
 
 
 ## Interrupciones
-Son mecanismos por el cual otros módulos(Memoria y E/S) pueden interrumpir la secuencia normal del procesador.
+Son mecanismos por el cual otros módulos(Memoria y E/S) pueden interrumpir la secuencia normal del procesador.  
 Todas las interrupciones **están dirigidas al procesador**.
 
 ### Tipos de Interrupciones
@@ -105,6 +103,7 @@ Todas las interrupciones **están dirigidas al procesador**.
 
 ### Manejador de interrupciones y múltiples interrupciones
 El **Manejador de Interrupciones** es una parte del Sistema Operativo. La **rutina** que utilizará **variará según la naturaleza de la interrupción**.
+
 En caso de **múltiples interrupciones**, el manejador las ejecutará en orden según un criterio determinado. El criterio puede ser por **prioridad** o por **fecha de llegada**(secuencial)
 
 
@@ -130,30 +129,31 @@ En el **SO**:
 * **Restaura** PC, PWS y los demás registros.
 
 
-
+* * *
 
 # Sistemas operativos
 
 ## Sistema Operativo (S.O.)
 Es el software más importante de una computadora.
 
-Desde la perspectiva del sistema, es un **asignador de recursos de Hardware** y maneja el **control de los programas de usuario**.
+Desde la perspectiva del sistema, es un **asignador de recursos de Hardware** y maneja el **control de los programas de usuario**.  
 Desde la perspectiva del usuario, **permite la utilización de los recursos**.
 
 
 ## Kernel
-Es el **núcleo del Sistema Operativo**, y la parte del software que ejecuta en **modo privilegiado**.
+Es el **núcleo del Sistema Operativo**, y la parte del software que ejecuta en **modo privilegiado**.  
 Entre muchas cosas, se encarga de **permitir la conexión de los periféricos** al sistema, **administrar la memoria** para que se utilice de manera eficiente, **planificar los procesos** y asignarles tiempo de procesamiento, etc.
 
 
 ## Llamadas al sistema (Syscalls)
-Son **funciones pertenecientes al kernel**, incluyen **instrucciones privilegiadas** que **solo son permitidas al SO**.
-Mediante estas syscalls, los programas de usuario pueden **pedir el acceso a los recursos privilegiados**.
+Son **funciones pertenecientes al kernel**, incluyen **instrucciones privilegiadas** que **solo son permitidas al SO**.  
+Mediante estas syscalls, los programas de usuario pueden **pedir el acceso a los recursos privilegiados**.  
 Ejemplo: write(Permite la escritura en un [descriptor de archivo](https://es.wikipedia.org/wiki/Descriptor_de_archivo))
 
 
 ## Envoltorios (Wrappers)
 Funciones que **encapsulan** a las syscalls. Permiten simplificar lógica y abstraer al usuario sobre que syscall usar(ya que las syscall pueden variar de un S.O. a otro)
+
 Ejemplo: printf (que imprime en pantalla) usa una syscall para linux (write) y otra para windows
 
 
@@ -179,7 +179,11 @@ El CPU **pasa a modo kernel** cuando ocurre una **interrupción** o una **syscal
 Además se incluyen datos obtenidos de las siguientes **referencias**:
 
 https://es.wikipedia.org/wiki/Ciclo_de_instrucci%C3%B3n
+
 https://es.wikipedia.org/wiki/Registro_MDR
+
 https://es.wikipedia.org/wiki/Registro_(hardware)
+
 https://postparaprogramadores.com/wrapper-informatica/
+
 https://www.youtube.com/watch?v=6EI3Ig7efWY
