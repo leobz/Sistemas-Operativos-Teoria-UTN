@@ -1,8 +1,21 @@
 **Resumen sobre Sistemas Operativos**, Leonel Bazán Otin.
-# Capitulo 1: Introducción a los Sistemas Operativos.
 
-# Conceptos básicos de los sistemas operativos.
-## Arquitectura del computador
+# Capitulo 1: Introducción a los Sistemas Operativos.
+Conceptos básicos para entender los sistemas operativos:
+
+**Arquitectura del Computador**
+* Firmware
+* Memoria Ram
+* Controladora de Memoria
+* Jerarquía de Memoria
+* Ciclo de Instrucción
+* Registros del CPU
+* Interrupciones
+
+**Sistemas Operativos**
+
+
+#Arquitectura del computador
 
 ### Firmware
 **Software de arranque**, tiene directa interacción con el hardware. Generalmente se almacena en la [ROM(Memoria de solo lectura)](https://es.wikipedia.org/wiki/Memoria_de_solo_lectura).
@@ -24,120 +37,139 @@ Se encarga de administrar los ciclos de memoria y gestionar el acceso, ya que lo
 ### Jerarquía de memoria
 Es la organización piramidal de la memoria en niveles. Los criterios son **velocidad**, **coste** y **capacidad**.
 ![jerarquia-de-memoria](https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Jerarquia_memoria.png/450px-Jerarquia_memoria.png)
-## Ciclo del CPU (Arquitectura Von Neumann)
-Busqueda(en la memoria) - Decodificacion - Ejecucion - PC +1 
-
-* Se extrae una instruccion de memoria y se almacena en el Registro de Instrucciones(MDR).  
-* Se decodifica la instruccion  
-* Se ejecuta la instruccion  
-* Se almacena el resultado de la operacion en memoria  
 
 
-## Registros del CPU
+### Ciclo de instrucción (Arquitectura Von Neumann)
+Es el **período que tarda** la CPU en **ejecutar una instrucción** de lenguaje máquina.
+Se basa en la primicia **fetch-decode-execute**, es decir:
 
-### Registros Visibles por el usuario
->Generalmente son registros de datos, de direccion de memoria y codigos de condicion.
-
-Registros de Datos  
-
-Registros de Codigos de Condicion  
-
-Registros de Direccion:  
-* Punteros de segmento: Apunta al inicio de un segmento
-* Registro Indice: Contiene un indice que se suma a una base del segmento, para obtener la direccion completa   
-* Puntero de pila: Apunta a la cima de una pila
-
-### Registros de Control y Estado  
->Controlan el funcionamiento del CPU
-
-Registros de Control:
- 
-* RDIM (Reg. de direccion de Memoria): Especifica la direccion de memoria de la siguiente lectura/escritura.
-* RDRAM (Reg. de datos de Memoria): Contiene los datos que se leen/escribiran en memoria
-* PC (Program Counter): Direccion de la proxima instruccion a leer.
-* IR (Reg. de Instruccion): Contiene la ultima instruccion leida.
-* TODO: agregar RDIE/S RDAE/S
+* **Buscar:** Se extrae una instrucción de memoria y se almacena en el **Registro de  Datos de Memoria** [(MDR)](https://es.wikipedia.org/wiki/Registro_MDR)
+* **Decodificar** la instrucción.
+* **Ejecutar** la instrucción.
+* (Si corresponde, almacenar el resultado de la operación en memoria).
 
 
 
-Registro de condiciones y estado:
-* PSW (Program Status Word): Contiene codigos de Condicion y de Estado(Manejo de Interrupciones y Modo de Usuario)
+### Registros del CPU
+Un registro es una memoria de alta velocidad y poca capacidad, integrada en el microprocesador, que permite guardar transitoriamente y acceder a valores muy usados, generalmente en operaciones matemáticas.
+
+### Tipos de Registros
+
+##### * Visibles por el usuario
+Generalmente son registros de:
+
+* **Datos**: se usan para guardar números enteros.
+* **Códigos de Condición**: contiene indicadores o flags.
+* **Dirección**:
+	* Punteros de segmento: Apunta al inicio de un segmento.
+	* Registro índice: Contiene un índice que se suma a una base del segmento, para obtener la direccion completa.
+	* Puntero de pila: Apunta a la cima de una pila
+
+##### * Control y Estado
+Controlan el funcionamiento del CPU, no los ve el usuario.
+
+Los **Registros de Control** son los registros de:
+
+* **Program Counter** (PC): Dirección de la próxima instrucción a leer.
+* **Instrucción** (IR): Contiene la última instrucción leida.
+* **Dirección de Memoria** (RDIM): Especifica la dirección de memoria de la siguiente lectura/escritura.
+* **Datos de Memoria** (RDRAM): Contiene los datos que se leen/escribirán en memoria
+* **TODO**: agregar RDIE/S RDAE/S
 
 
-# Interrupciones
->Mecanismos por el cual otros modulos(Memoria y E/S) pueden interrumpir el secuenciamiento normal del procesador.
+
+**Registro de estado**:
+* **Palabra de estado del programa** (PSW): Contiene información sobre el estado de un programa. Además contiene un campo de error y un código de condición.
+
+
+## Interrupciones
+Son mecanismos por el cual otros módulos(Memoria y E/S) pueden interrumpir el secuenciamiento normal del procesador.
+Todas las interrupciones **están dirigidas al procesador**.
 
 ### Tipos de Interrupciones
 
-* De programa: Resultado de la ejecucion de una instruccion(desbodamiento, division por cero,etc).
-* Por temporizador: Permite al SO realizar ciertas funciones de forma regular
-* De E/S: Generada por un controlador  de E/S para indicar el exito o el error de una operacion.
-* Por fallo de Hardware: Ejemplo un fallo en la energia.
+* **De programa**: Resultado de la ejecución de una instrucción(desbodamiento, división por cero,etc).
+* **Por temporizador**: Permite al SO realizar ciertas funciones de forma regular.
+* **De E/S**: Generada por un controlador  de E/S para indicar el éxito o el error de una operación.
+* **Por fallo de Hardware**: Ejemplo un fallo en la energía.
 
-### Fase de Interrupcion
-* Esta fase se ejecuta despues de completarse una instruccion.
-* Comprueba interrupciones pendientes y determina si seran atendidas.
-* En caso de atenderse, se ejecuta el Manejador de Interrupciones.
+### Ciclo de Instrucción: Fase de Interrupción
+* Esta fase se ejecuta **DESPUÉS DE COMPLETARSE LA INSTRUCCIÓN**.
+* Comprueba interrupciones pendientes y **determina si serán atendidas**.
+* En caso de atenderse, se ejecuta el [**Manejador de Interrupciones**](https://en.wikipedia.org/wiki/Interrupt_handler)
 
-
-### Manejador de iterrupciones
-> Es una parte del Sistema Operativo, la rutina a utilizar variara segun la naturaleza de la interrupcion.
-
-
-### Clasificacion de Interrupciones
-* Enmascarables: Se pueden deshabilitar. Pueden ser postergadas (ej: una lectura de disco). 
-* No Enmascarables: Siempre habilitadas. No pueden ser postergadas (ej: TODO).
-* Sincronas: Provocadas por instrucciones internas de un programa
-* Asincronas: Provocadas por eventos externos al programa. Su objetivo es notificar al SO algun cambio en el ambiente.
+### Manejador de interrupciones y múltiples interrupciones
+El **Manejador de Interrupciones** es una parte del Sistema Operativo. La **rutina** que utilizará **variará según la naturaleza de la interrupción**.
+En caso de **múltiples interrupciones**, el manejador las ejecutará en orden según un criterio determinado. El criterio puede ser por **prioridad** o por **fecha de llegada**(secuencial)
 
 
-### Secuencia de una Interrupcion:
-* En el procesador:
-    * Se genera interrupcion
-    * Finaliza instruccion actual (No se puede interrumpir la instruccion ACTUAL)
-    * Determina si se atiende interrupcion
-    * Guarda el PC y PWS con el estado actual (En realidad TODOS los registros)
-    * Carga el manejador de interrupciones
-* En el SO:
-    * Guarda la informacion del procesador 
-    * Procesa Interrupcion
-    * Restaura informacion del procesador guardada
-    * Restaura PC y PWS
 
-### Multiples interrupciones:
-Existe un manejador de interrupciones que ejecuta las instrucciones en orden segun un criterio  
-Criterio de manejo de Interrupciones: Por prioridad o por fecha de llegada(secuencial)
+### Clasificación de Interrupciones
+* **Enmascarables**: Se pueden deshabilitar. Pueden ser postergadas (ej: una lectura de disco).
+* **No Enmascarables**: Siempre habilitadas. No pueden ser postergadas (ej: fallo crítico de energía).
+* **Síncronas**: Provocadas por instrucciones internas de un programa
+* **Asíncronas**: Provocadas por eventos externos al programa. Su objetivo es notificar al SO algún cambio en el ambiente.
+
+
+### Secuencia de una Interrupción:
+En el **procesador**:
+* Se **genera** interrupción
+* **Finaliza** instrucción actual (No se puede interrumpir la instruccion ACTUAL)
+* **Determina** si se atiende interrupcion
+* **Guarda** el PC y PWS con el estado actual (En realidad TODOS los registros)
+* Carga el **manejador de interrupciones**
+
+En el **SO**:
+* **Guarda** la información del procesador
+* **Procesa** Interrupción
+* **Restaura** PC, PWS y los demás registros.
+
+
 
 
 # Sistemas operativos
 
-## Sistema Operativo (SO)
->Programa que se ejecuta continuamente en la computadora(kernel).
+## Sistema Operativo (S.O.)
+Es el software más importante de una computadora.
 
-Vista del Usuario: Utilizacion de Recursos.  
-Vista del Sistema: Asignador de Recursos de Hardware y Programa de Control de los programas de usuario. 
+Desde la perspectiva del sistema, es un **asignador de recursos de Hardware** y maneja el **control de los programas de usuario**.
+Desde la perspectiva del usuario, **permite la utilización de los recursos**.
 
-## Syscalls(Llamadas al sistema):
-Funciones incluidas en el kernel del SO. (ej: write)  
-Permiten el acceso a recursos que el programa no puede acceder.  
-Algunas syscalls (TODO ¿o todas?) incluyen instrucciones privilegiadas que solo son permitidas al SO.
 
-## Wrappers:
-Funciones, que llaman syscalls del SO para el cual se compilo el programa.  
-Permiten una abstraccion al usuario de la syscall a usar.  
-(ej: printf usa un syscall para linux y otro para windows)
+## Kernel
+TODO
 
-## Modos de Ejecucion del procesador:
-* Modo Kernel: 
-    * Ejecuta instrucciones privilegiadas y NO privilegiadas(ej: apagar pc, habilitar interrupcion)
-    * Solo las puede ejecutar el SO.
-* Modo Usuario:
-    * Solo ejecuta instrucciones NO priviligiadas. (ej: sumar, restar, etc) 
-    * Las pueden ejecutar el usuarios.
+## Llamadas al sistema (Syscalls)
+Son **funciones pertenecientes al kernel**, incluyen **instrucciones privilegiadas** que **solo son permitidas al SO**.
+Mediante estas syscalls, los programas de usuario pueden **pedir el acceso a los recursos privilegiados**.
+Ejemplo: write(Permite la escritura en un [descriptor de archivo](https://es.wikipedia.org/wiki/Descriptor_de_archivo))
 
-Si un programador necesita que el programa ejecute una instruccion privilegiada,
-le tiene que pedir al sistema operativo que lo haga mediante una syscall.
 
-## Cambio de modo en el procesador:
-* Se producen cuando el procesador pasa de modo Usuario a modo Kernel y biseversa.
-* El modo Kernel del procesador ocurre cuando hay una interrupcion o una syscall.
+## Envoltorios (Wrappers)
+Funciones que **encapsulan** a las syscalls. Permiten simplificar lógica y abstraer al usuario sobre que syscall usar(ya que las syscall pueden variar de un S.O. a otro)
+Ejemplo: printf (que imprime en pantalla) usa una syscall para linux (write) y otra para windows
+
+
+## Modos de ejecución (CPU)
+#### Modo Kernel:
+* Ejecuta tanto instrucciones **privilegiadas** cómo **no privilegiadas**. (Ej: Acceder al hardware, Habilitar interrupción, etc)
+* **Solo las puede ejecutar el S.O**.
+
+#### Modo Usuario:
+* Solo ejecuta instrucciones **no priviligiadas**. (Ej: sumar, restar, acceder a zonas de memoria asignadas, etc)
+* Las pueden ejecutar el usuarios.
+
+Si un programador necesita que el programa ejecute una instruccion privilegiada, le tiene que pedir al sistema operativo que lo haga mediante una **syscall**.
+
+#### Cambio de modo (CPU):
+Se producen cuando el procesador pasa de **modo usuario** a **modo kernel** y viceversa.
+El CPU **pasa a modo kernel** cuando ocurre una **interrupcion** o una **syscall**.
+
+
+* * *
+
+Referencias:
+https://es.wikipedia.org/wiki/Ciclo_de_instrucci%C3%B3n
+https://es.wikipedia.org/wiki/Registro_MDR
+https://es.wikipedia.org/wiki/Registro_(hardware)
+https://postparaprogramadores.com/wrapper-informatica/
