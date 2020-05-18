@@ -1,48 +1,45 @@
-### Hilo
-Es un componente de un proceso.
+# Capítulo 3: Hilos
 
-## Mono hilo
-(ver)
+## Hilo
 
-## MultiHilo
-(Ver))
+Es un componente de un **proceso**, un **subproceso**. Tiene los mismos **estados** que un proceso, aunque la conmutación entre hilos de un mismo proceso es **menos costosa** que la  conmutación de procesos.  
 
-* pthread_create():
-	* Cuando se lanzan hilos dentro de un proceso, esos hilos pertenecen al mismo proceso, no son procesos distintos.
-	
-### Estructura de un proceso con hilos
+Un proceso puede ser **monohilo** (es decir, tiene una sola linea de ejecución en un intervalo de tiempo) o **multihilo** (múltiples lineas de ejecución en un intervalo de tiempo)
 
-*Se comparte el codigo, los datos y el heap.
-* La pila no se comparte
-* El PCB crea un campo TCB por cada hilo, que tiene la informacion particular de cada hilo.
+Al hablar de hilos, haremos referencia a los procesos **multihilos**.
+
+## Estructura de un proceso con hilos
+
+* Se **comparte** el **código**, los **datos** y el **heap**.
+* La **pila no se comparte**
+* El **PCB** crea un campo **TCB** por cada hilo, que tiene la información particular de cada hilo.
 
 
-
-### Estados de Hilos
-
-* Listo
-* Ejecutando
-* (ver)
-
-### Ventajas de los hilos
+### Ventajas de usar hilos
 
 * Capacidad de respuesta
 * Economia (No se tiene que crear otro proceso mediante el OverHead del sistema operativo a cada rato)
-* Comparticion de recursos
-* Comunicacion eficiente.
-* Permite multiprocesamiento
-* Procesamiento Asincronico
+* **Compartición** de recursos
+* Comunicación **eficiente**
+* Permite **multiprocesamiento** (Solo [KLT](https://es.wikipedia.org/wiki/Hilo_(inform%C3%A1tica)#Hilos_a_nivel_de_n%C3%BAcleo_(KLT)))
+* Procesamiento **asincrónico**
 
-### Hilos de Usuario ULT
+### Hilos a nivel de usuario (ULT)
 
-* Necesita una biblioteca que simule la planificacion de los hilos
-* Ventajas: 
-	* Bajo overHead
-	* Permiten portabilidad ya que no tienen que llamar al sistema operativo para que los maneje.
-	* La planificacion es manejada por el programador
-* Desventajas:
-	* Syscall bloqueante bloquea todo el proceso. El uso de un recurso bloqueante va a hacer que el sistema operativo bloquee todos los hilos. Ya que del lado del sistema operativo el PCB va a tener un unico TCB y lo va a reconocer como un solo hilo.
-	* No permiten multiprocesamiento
+En una implementación ULT, todo el trabajo de gestion de hilos se realiza en la aplicación, y el núcleo o kernel no es conciente de la existencia de estos hilos.
+
+Los ULT necesitan una biblioteca de hilos que se encarge de la planificacion de los mismos.
+
+Ventajas:
+
+* Bajo overhead (ya que se evita pasar a modo kernel)
+* Permiten **portabilidad** ya que no tienen que llamar al sistema operativo para que los maneje.
+* La planificación es manejada por el programador
+
+Desventajas:
+
+* Una Syscall bloqueante **bloquea todo el proceso**. El uso de un **recurso bloqueante** va a hacer que el sistema operativo **bloquee todos los hilos**. Ya que del lado del sistema operativo el PCB va a tener un unico TCB y lo va a reconocer como un solo hilo.
+* No permiten multiprocesamiento
 
 
 ### Hilos de Kernel KLT
