@@ -52,12 +52,11 @@ Principal foco en los estados:
 
 Es la planificación **más frecuente** que utiliza el SO. De aquí en adelante **nos centraremos en este tipo de planificación**.
 
-## Criterios de Planificación (Corto plazo)
+## Criterios de Planificación
 
-* Deciden cuál es el **siguiente proceso** que se debe ejecutar
-* Deciden **donde ubicar el PCB** del proceso que **deja de ejecutarse**.
+Deciden cuál es el **siguiente proceso** que se debe ejecutar. Tambien deciden **donde ubicar el PCB** del proceso que **deja de ejecutarse**.
 
-## Orientados al usuario (Proceso)
+### Orientados al usuario (Proceso)
 
 **Prestaciones** cuantitativas:
 
@@ -69,7 +68,7 @@ Es la planificación **más frecuente** que utiliza el SO. De aquí en adelante 
 
 * Previsibilidad
 
-## Orientados al Sistema
+### Orientados al Sistema
 
 **Prestaciones** cuantitativas:
 
@@ -92,11 +91,32 @@ Funcionamiento:
 * La prioridad de un proceso **puede variar**
 * El próximo proceso a ejecutar sera el de **máxima prioridad**
 
+### Simultaneidad de eventos en Ready (aplica a varios algoritmos)
+
+Si varios procesos **pasan a Ready simultáneamente**, se **ordenarán** por la siguiente **prioridad**:
+
+1) **Interrupción por Clock**
+2) Interrupción por finalización de evento
+3) Transición de estado **Nuevo** -> Listo
+
 ## Categorías de algoritmos de planificación
 
-**Sin desalojo** (Sin expulsión de estado Running) : **FIFO** y **SJF**
+**Sin desalojo** (Sin expulsión de estado Running):
 
-**Con desalojo** (Con expulsión) : SRT (**SFJ** con desalojo), **Round Robin**, etc.
+* FIFO
+* SJF
+* HRRN
+
+**Con desalojo** (Con expulsión):
+
+* SRT (SFJ con desalojo)
+* Round Robin
+* Virtual Round Robin
+
+Mixtos:
+
+* Colas Multinivel
+* Colas Multinivel Retroalimentado
 
 ### FIFO (First In First Out)
 
@@ -163,59 +183,39 @@ Notas:
 * Si un proceso **sale de bloqueado** y su quantum restante **es cero**, entonces pasará a estado de **Ready y no a Auxiliar**.
 * Si un proceso pasa de **Auxiliar** -> **Running** -> **Bloqueado nuevamente** -> **Auxiliar nuevamente**, su quantum será el quantum anterior que le quedaba menos lo que ejecutó en el CPU.
 
-### Simultaneidad de eventos en Ready (aplica en varios algoritmos)
+### HRRN (Primero el de mayor Tasa de Respuesta)
 
-Los procesos se ordenaran por la siguiente prioridad
+Algoritmo **sin desalojo**, que prioriza los **procesos con mayor tiempo en Ready y ráfaga más chica**.
 
-1) Interrupcion por Clock pasa a Listo  
-2) Interrupcion por finalizacion de evento pasa a Listo  
-3) Pasar de estado Nuevo a Listo
+* **Aging** (Envejecimiento): Mecanismo que aumenta la prioridad del proceso con el paso del tiempo. **Previene la inanición**.
+* **Tasa de Respuesta**: Es un cálculo que implica el tiempo en Ready y el tiempo de rafaga estimado
 
-### HRRN (Primero el de mayor tasa de respuesta)
+TODO: INSERTAR IMAGEN DE TASA DE RESPUESTA ACÁ
 
-* Sin desalojo
-* Aging (envejecimientos): Mecanismo que aumenta la prioridad del proceso con el paso del tiempo en ready, previene la inanicion.
-* La tasa de respuesta es un calculo que implica el tiempo en Ready y el tiempo de rafaga estimado
-* Prioriza a los que estan mayor tiempo en Ready y con tiempo de rafaga mas chico.
-
->> Formula aqui
-
-### Colas multinivel
+### Colas Multinivel
 
 Se clasifican los procesos por tipos en diferentes colas.
+**Cada cola** usa su **propio algoritmo de planificación**
 
-* Hay colas que tendran mas prioridad que otras
-* Cada cola usa su propio algoritmo de planificacion
-* Las colas pueden tener distintos criterios
+* Hay colas que tendran más prioridad que otras
+* Las colas pueden tener **distintos criterios**
 
-### Colas de Priodidades
+### Colas Multinivel Retroalimentado (Feedback multinivel)
 
-(Copiar) No esta en el
+Algoritmo parecido al de **colas multinivel**, sólo que:
 
-### Colas Multinivel Retroalimentado(Feedback multinivel)
+* Un proceso que entra **desde Nuevo**, pasa a la cola de **máxima prioridad**
+* Pueden **existir reglas** para poder pasar los procesos a otras colas, según algun criterio especificado.
 
-Parecido al de colas multinivel solo que
+## Planificación de Hilos
 
-* Un proceso que entra desde Nuevo, pasa a la cola de maxima prioridad
-* Pueden existir reglas para pasar los procesos a otras colas segun algun criterio que se quiera.
+Los hilos **KLT son tratados como procesos**, y su planificación estará dada por el **algoritmo de planificación del momento**.
 
-### Hilos
+Los **ULT** no son reconocidos por el S.O, por lo que si no usan Jacketing, la primer interrupción que lance un hilo, bloqueará todo el proceso.
 
-Se lanza el hilo con TID mas corto antes? Porque en el ejemplo no se basaban en las rafagas de los hilos.
-
-* por convencion de la catedra:
-* Preguntar por los proceso o hilos por defecto
-
-* Syscall pasan o no por la biblioteca?
-* Hay Jacketing?
-Consultar en la proxima clase
+**Nota**: Por convención de la cátedra de Sistemas Operativos, a menos que se indiquen, los ULT **no usarán Jacketing**.
 
 Nota: Recordar que si  un proceso se corta por clock va a Ready, no a bloqueados
-
-### Recomendaciones de la catedra
-
-* Resolver toda la guia de ____
-* Ver parciales anteriores para ver el nivel que se espera
 
 - - -
   
