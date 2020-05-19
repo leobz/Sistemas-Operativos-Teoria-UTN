@@ -1,5 +1,36 @@
 # Capítulo 4: Planificación de la CPU
 
+## Temario
+
+### Planificación del CPU
+
+* Objetivos de la planificación
+* Ciclo de Ráfagas
+* Tipos de Planificación
+  * De largo plazo
+  * De medio plazo
+  * De corto plazo
+* Criterios de planificación
+  * Orientados al Proceso
+  * Orientados al Sistema
+
+### Algoritmos de planificación
+
+* Simultaneidad de Eventos en Ready
+* Categorías de Algoritmos de Planificación
+* FIFO
+* SJF
+* SFJ con desalojo
+* Round Robin
+* Virtual Round Robin
+* HRRN
+* Colas Multinivel
+* Colas Multinivel Retroalimentado
+
+### Planificación de Hilos
+
+# Planificación del CPU
+
 La Planificación de la CPU es un **conjunto de técnicas y algoritmos** de los Sistemas Operativos **Multiprogramados**, que sirven para asignarle a los procesos tiempo de ejecución en el CPU.
 
 ## Objetivos de la planificación del CPU
@@ -81,7 +112,7 @@ Deciden cuál es el **siguiente proceso** que se debe ejecutar. Tambien deciden 
 * Imposición de **prioridades**
 * Equlibrar **recursos**
 
-## Algoritmos de planificación
+# Algoritmos de planificación
 
 Algoritmos que utliiza el módulo de planificación del S.O para tomar desiciones de planificación. Existen varios y **se pueden alternar** dependiendo de los requerimientos del planificador.
 
@@ -91,9 +122,9 @@ Funcionamiento:
 * La prioridad de un proceso **puede variar**
 * El próximo proceso a ejecutar sera el de **máxima prioridad**
 
-### Simultaneidad de eventos en Ready (aplica a varios algoritmos)
+## Simultaneidad de eventos en Ready
 
-Si varios procesos **pasan a Ready simultáneamente**, se **ordenarán** por la siguiente **prioridad**:
+Si varios procesos **pasan a Ready simultáneamente**, se **ordenarán** por la siguiente **prioridad** (**Aplica a varios algoritmos**) :
 
 1) **Interrupción por Clock**
 2) Interrupción por finalización de evento
@@ -101,41 +132,41 @@ Si varios procesos **pasan a Ready simultáneamente**, se **ordenarán** por la 
 
 ## Categorías de algoritmos de planificación
 
-**Sin desalojo** (Sin expulsión de estado Running):
+### Sin desalojo (Sin expulsión de estado Running)
 
 * FIFO
 * SJF
 * HRRN
 
-**Con desalojo** (Con expulsión):
+### Con desalojo (Con expulsión)
 
 * SRT (SFJ con desalojo)
 * Round Robin
 * Virtual Round Robin
 
-Mixtos:
+### Mixtos
 
 * Colas Multinivel
 * Colas Multinivel Retroalimentado
 
-### FIFO (First In First Out)
+## FIFO (First In First Out)
 
 * Los procesos se ejecutan por **orden de llegada** a la cola de Ready
 * El primero que llega es el primero en ejecutarse
 * Los procesos **solo salen de Running cuando hacen una syscall o finaliza**
 
-### Short Job First (SJF sin desalojo o SPN)
+## Short Job First (SJF sin desalojo o SPN)
 
 * Se **ejecutará primero** el proceso con **ráfaga mas corta** (VER)
 * Se fija cuál proceso tiene la **duracion más corta**(menos ciclos del cpu).
 
 **Nota**: si hay dos procesos con la **misma ráfaga**, se elige el primero que llegó a la lista, o por el número del PID (éstos son criterios de la cátedra de la UTN, no es una tautología universal)
 
-#### Desventajas
+### Desventajas
 
 * **Inanición** (Si siempre hay procesos con ráfaga más corta, puede que un proceso nunca se ejecute)
 
-#### ¿Cómo estimar la ráfaga de un proceso?
+### ¿Cómo estimar la ráfaga de un proceso?
 
 * Por estadistíca de usos de un proceso
 * Por **Fórmula del promedio exponencial**
@@ -147,13 +178,13 @@ TODO: INSERTAR IMAGEN DEL PROMEDIO EXPONENCIAL
 * Para el uso del **estimador de ráfagas**, se necesitarán guardar todas las ráfagas anteriores para usarlas como referencias.
 * La **estimación inicial**, será un numero que el S.O. asigne **por defecto** para **todos los procesos**.
 
-### SJF con desalojo
+## SJF con desalojo
 
 Si mientras ejecuta un proceso **A**, su **ráfaga restante** es mayor a la ráfaga de un proceso **B** en Ready, se pone a ejecutar B y A se pone en Ready.
 
 **Nota**: si lo que queda del proceso actual **es igual a una rafaga en espera**, se seguirá ejecutando el proceso en CPU (Ésto es decicion de la cátedra)
 
-### Round Robin
+## Round Robin
 
 * La cola de **Ready** se comporta cómo **FIFO**
 * Existe **Quantum**: pequeño intervalo de tiempo que se asigna a un proceso para usar el CPU
@@ -164,7 +195,7 @@ Si mientras ejecuta un proceso **A**, su **ráfaga restante** es mayor a la ráf
 * **q = 1**: A pesar de ser justo, produce **mucho overhead**.
 * **q <= 4**: Tiempos muy **largos** y **no se aprovecha el desalojo** (resulta casi lo mismo que hacer FIFO)
 
-### Virtual Round Robin (VRR)
+## Virtual Round Robin (VRR)
 
 Algoritmo **con desalojo**. Trata de **beneficiar** a los procesos **IO bound**.  
 
@@ -192,7 +223,7 @@ Algoritmo **sin desalojo**, que prioriza los **procesos con mayor tiempo en Read
 
 TODO: INSERTAR IMAGEN DE TASA DE RESPUESTA ACÁ
 
-### Colas Multinivel
+## Colas Multinivel
 
 Se clasifican los procesos por tipos en diferentes colas.
 **Cada cola** usa su **propio algoritmo de planificación**
@@ -200,7 +231,7 @@ Se clasifican los procesos por tipos en diferentes colas.
 * Hay colas que tendran más prioridad que otras
 * Las colas pueden tener **distintos criterios**
 
-### Colas Multinivel Retroalimentado (Feedback multinivel)
+## Colas Multinivel Retroalimentado (Feedback multinivel)
 
 Algoritmo parecido al de **colas multinivel**, sólo que:
 
@@ -223,5 +254,5 @@ Referencias:
 
 * Sistemas Operativos 5ta Edición (Parte 4) - Willian Stallings
 
-* https://en.wikipedia.org/wiki/CPU-bound
-* https://www.udg.co.cu/cmap/sistemas_operativos/planificacion_cpu/sjf/sjf.html
+* <https://en.wikipedia.org/wiki/CPU-bound>
+* <https://www.udg.co.cu/cmap/sistemas_operativos/planificacion_cpu/sjf/sjf.html>
