@@ -78,35 +78,21 @@ El grafo nos indicará que hay deadlock si y solo si:
 
 ## 4 Maneras de tratar al Deadlock
 
-### 1) Prevencion de Deadlock
+Las por **orden de Overhead** producido
 
-* Garantiza que no ocurrira Deadlock
-* Impedir que se produzca la Mutua exclusion
+* Evasion o Prediccion (Pueden solicitar siempre, y dependiendo del algoritmo se le asigna o no)(+ overhead)
+* Prevencion (Politica a los pedidos, poco flexible)
+* Deteccion
+* No hacer nada (- overhead)
 
-**Soluciones** para:
-
-* Problema de mutua exclusión:
-  * **No generar Mutua Exclusión** de recursos(puede haber race-condition)
-  
-* Problema de Retencion y Espera:
-  * Solicitar todos los recursos juntos (Esto puede causar inanicion en otros procesos)
-  * Solicitar los recursos de uno o varios, utilizarlos y liberarlos
-
-* Problema de desalojo de recuros:
-  * Si un proceso que tiene recursos asignados solicita uno que no esta disponible, debe liberar sus recursos(puede haber inanicion)
-  * Si un proceso A solicita un recurso que esta asignado a otro proceso B que esta a la espera de mas recursos. El recurso asignado al proceso B puede asignarse al proceso A.
-
-* Problema de: Espera circular:
-  * Asignar un numero de orden a los recursos. Los recursos solo pueden solicitarse en orden creciente.(puede haber inanicion)
-
-### 2) Evasión o Predicción de Deadlock
+### 1) Evasión o Predicción de Deadlock
 
 * Garantiza que no ocurrira Deadlock
 * Tecnicas:
   * Denegear el inicio del proceso
   * **Algoritmo del Banquero**: Siempre esta en estado seguro
 
-### Algoritmo del Banquero
+#### Algoritmo del Banquero
 
 El algoritmo del banquiero **simula** la asignacion de recursos. Luego aplica un algoritmo de seguridad.
 
@@ -126,6 +112,27 @@ Cuando buscamos estados seguros, con encontrar una secuencia segura ya esta.
 Puede ver mas de una secuencia segura. Con llegar a una, ya concluimos que hay en un estado seguro, si no encontramos ninguna, el estado es inseguro
 
 **TIP:** Verificar que los recursos liberados al final del algoritmo, son iguales a los recursos totales.
+
+### 2) Prevencion de Deadlock
+
+* Garantiza que no ocurrira Deadlock
+* Impedir que se produzca la Mutua exclusion
+
+**Soluciones** para:
+
+* Problema de mutua exclusión:
+  * **No generar Mutua Exclusión** de recursos(puede haber race-condition)
+  
+* Problema de Retencion y Espera:
+  * Solicitar todos los recursos juntos (Esto puede causar inanicion en otros procesos)
+  * Solicitar los recursos de uno o varios, utilizarlos y liberarlos
+
+* Problema de desalojo de recuros:
+  * Si un proceso que tiene recursos asignados solicita uno que no esta disponible, debe liberar sus recursos(puede haber inanicion)
+  * Si un proceso A solicita un recurso que esta asignado a otro proceso B que esta a la espera de mas recursos. El recurso asignado al proceso B puede asignarse al proceso A.
+
+* Problema de: Espera circular:
+  * Asignar un numero de orden a los recursos. Los recursos solo pueden solicitarse en orden creciente.(puede haber inanicion)
 
 ### 3) Detección y recuperación de Deadlock
 

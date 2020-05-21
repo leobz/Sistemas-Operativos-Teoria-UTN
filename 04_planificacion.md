@@ -197,16 +197,16 @@ Si mientras ejecuta un proceso **A**, su **ráfaga restante** es mayor a la ráf
 
 ## Virtual Round Robin (VRR)
 
-Algoritmo **con desalojo**. Trata de **beneficiar** a los procesos **IO bound**.  
+Algoritmo **con desalojo**. Trata de **beneficiar** a los procesos que fueron **bloqueados**, por eso los **IO bound** (que hacen varias interrupciones por recursos) se ven beneficiados.  
 
-* Existe **Quantum** (interrupción por clock)
+* Desalojo por **Quantum** (interrupción por clock)
 * Existen **dos colas de procesos Listos** (se incluye cola **"Auxiliar"**)
 
 Funcionamiento:
 
 * Los procesos que tienen **interrupción por Quantum** van a **Ready**
 * Los procesos que **salen de Bloqueados**  van a la cola **Auxiliar**
-* Los **procesos** de la cola **Auxiliar** tienen **más prioridad** que los de la cola de **Listos**
+* Los **procesos** de la cola **Auxiliar** tienen **más prioridad** que los de la cola **Ready**
 * El **quantum** de los procesos de la cola **Auxiliar** será igual su **quantum restante** (q* = q - tiempo en CPU)
 
 Notas:
@@ -214,14 +214,20 @@ Notas:
 * Si un proceso **sale de bloqueado** y su quantum restante **es cero**, entonces pasará a estado de **Ready y no a Auxiliar**.
 * Si un proceso pasa de **Auxiliar** -> **Running** -> **Bloqueado nuevamente** -> **Auxiliar nuevamente**, su quantum será el quantum anterior que le quedaba menos lo que ejecutó en el CPU.
 
-### HRRN (Primero el de mayor Tasa de Respuesta)
+## HRRN (Primero el de mayor Tasa de Respuesta)
 
 Algoritmo **sin desalojo**, que prioriza los **procesos con mayor tiempo en Ready y ráfaga más chica**.
 
 * **Aging** (Envejecimiento): Mecanismo que aumenta la prioridad del proceso con el paso del tiempo. **Previene la inanición**.
 * **Tasa de Respuesta**: Es un cálculo que implica el tiempo en Ready y el tiempo de rafaga estimado
 
-TODO: INSERTAR IMAGEN DE TASA DE RESPUESTA ACÁ
+#### Tasa de Respuesta
+
+ R =  $\frac{TiempoReady}{TiempoCPU + R.Anterior}$
+
+W = Tiempo esperando en Ready  
+S = Tiempo de CPU esperado  
+R = Tasa de respuesta
 
 ## Colas Multinivel
 
@@ -240,9 +246,10 @@ Algoritmo parecido al de **colas multinivel**, sólo que:
 
 ## Planificación de Hilos
 
-Los hilos **KLT son tratados como procesos**, y su planificación estará dada por el **algoritmo de planificación del momento**.
+Los hilos **KLT son tratados como procesos**, y su planificación estará dada por el **algoritmo de planificación del S.O.**.
 
-Los **ULT** no son reconocidos por el S.O, por lo que si no usan Jacketing, la primer interrupción que lance un hilo, bloqueará todo el proceso.
+Los **ULT** no son reconocidos por el S.O, por lo que si no usan Jacketing, la primer interrupción que lance un hilo, bloqueará todo el proceso.  
+Los **ULT** usan su propia **planificación interna**, y por fuera, el **proceso entero es planificado por el S.O.**
 
 **Nota**: Por convención de la cátedra de Sistemas Operativos, a menos que se indiquen, los ULT **no usarán Jacketing**.
 
