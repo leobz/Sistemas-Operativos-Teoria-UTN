@@ -95,11 +95,13 @@ Funciones sobre los semaforos:
 
 Tipos de semáforos:
 
-* General o de contador
-* Binario (0 o 1)
-* Mutex ( 0 o 1)
+* **General o de contador**: permiten llevar la cuenta del número de unidades de recurso compartido disponible, que va desde 0 hasta N.
+* **Binario** (0 o 1)  
+* **Mutex** ( 0 o 1): inicialmente su contador vale 1 permite que haya un único proceso simultáneamente dentro de la sección crítica.
 
 **Nota**: Los semáforos siempre se inicializan con valor 0 o superior
+
+
 
 ### Monitores
 

@@ -9,7 +9,7 @@ Que hace wait(semaforoA,20)?
 
 Que es starvation? -> Inanicion en ingles
 
-Diferencias entre los tipos de semáforos
+
 
 En deadlock, que es la espera circular?
 
@@ -323,6 +323,15 @@ de ellos el PSW ( eso hace pasaje de K -> U ) y el PC
   
 ## Sincronización
 
+- - -
+
+Diferencias entre los tipos de semáforos
+
+```
+los semaforos con espera activa generan carga de espera activa porque, ponele, corren un while() hasta que "la condicion de que el semaforo este libre", se cumpla. ¿Cuando estos semaforos tienen ventaja? Cuando se sabe que la espera activa es corta o cuando se usan varios procesadores, uno de los procesadores puede estar ejecutando esa espera activa y otro puede estar corriendo procesos.
+
+Para los semaforos sin espera activa, podes implementarlos con el hardware (inhabilitando interrupciones o con uno que se llamaba algo como "get_set") o mediante software, que segun lo que me acuerdo, es algo como que si ven que no pueden entrar al semaforo, se bloquean y esperan a que ocurra una señal por parte de otro proceso (o hilo si se usa jacketing), habilitando la entrada del semaforo. ¿Que ventajas trae esto? No tenes espera activa, y por ende menos overherd, la desventaja no recuerdo cual era
+```
 
 - - -
 
@@ -467,13 +476,13 @@ El caso de detección, el resultado dice si en dicho momento el sistema se encue
 
 El algoritmo del banquero utiliza las peticiones máximas, que pueden ocurrir o no, mientras el de detección sólo conoce peticiones que se realizan en un momento en particular.
 
-La técnica de evasión es pesimista ya que considera el peor de los casos: ante cada petición, sólo la satisface inmediatamente si la misma deja al sistema en un estado que aún si todos los procesos piden lo máximo que podrían pedir, se pueden asignar correctamente los recursos (en una secuencia segura).
+
 ```
 
 ¿Por qué se dice que la técnica de evasión es “pesimista”?
 
  ```
-
+La técnica de evasión es pesimista ya que considera el peor de los casos: ante cada petición, sólo la satisface inmediatamente si la misma deja al sistema en un estado que aún si todos los procesos piden lo máximo que podrían pedir, se pueden asignar correctamente los recursos (en una secuencia segura).
  ```
 
 
