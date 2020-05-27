@@ -1,197 +1,265 @@
-## Objetivo de la planificaion del CPU
-* Asignar procesos al procesador
+# Capítulo 4: Planificación de la CPU
+
+## Temario
+
+### Planificación del CPU
+
+* Objetivos de la planificación
+* Ciclo de Ráfagas
+* Tipos de Planificación
+  * De largo plazo
+  * De medio plazo
+  * De corto plazo
+* Criterios de planificación
+  * Orientados al Proceso
+  * Orientados al Sistema
+
+### Algoritmos de planificación
+
+* Simultaneidad de Eventos en Ready
+* Categorías de Algoritmos de Planificación
+* FIFO
+* SJF
+* SFJ con desalojo
+* Round Robin
+* Virtual Round Robin
+* HRRN
+* Colas Multinivel
+* Colas Multinivel Retroalimentado
+
+### Planificación de Hilos
+
+# Planificación del CPU
+
+La Planificación de la CPU es un **conjunto de técnicas y algoritmos** de los Sistemas Operativos **Multiprogramados**, que sirven para asignarle a los procesos tiempo de ejecución en el CPU.
+
+## Objetivos de la planificación del CPU
+
+* **Asignar procesos** al procesador
 * Rendimiento/ Productividad
-* Optimizar algun aspecto del comportamiento del sistema
+* Optimizar algún aspecto del comportamiento del sistema (VER)
+  * **Equidad**
+  * Evitar **inanición**
 
-## Ciclo de rafagas
-* CPU -> E/S -> CPU (las mas comunes)
-* Limitados por la CPU (CPU bound) Mucho procesamiento
-* Limitados por E/S(IO bound) Mucha entrada y salida
+**Inanición**: Situación en la que a un proceso se le **niega la posibilidad de utilizar un recurso** (en este caso sería el cpu). Provoca que ante la falta del recurso, el proceso **nunca pueda finalizar**.
 
-## Tipos de Planificacion
+## Ciclo de ráfagas
+
+**Ráfagas de CPU**: es el ciclo en donde se realizan las instrucciones del proceso.  
+**Ráfagas de E/S**: es el ciclo en donde se utilizan o esperan los dispositivos de Entrada y Salida.  
+**Ciclos de ráfagas más comunes**: CPU -> E/S -> CPU
+
+Tipos de procesos, según su uso del **tiempo de ejecución**:
+
+* Limitados por la CPU (**CPU bound**): Mucho procesamiento y poca E/S
+* Limitados por E/S(**IO Bound**) Mucha entrada y salida
+
+## Tipos de Planificación
+
+Dependiendo de la importancia que se le de a ciertos estados de los procesos, podemos distinguir entre distintos tipos de planificaciones.
+
 ### De largo plazo
 
-Los estados New y Exit definiran el grado de multiprogramacion del SO. Ejemplo, Windows Vista Starter solo dejaba crear 3 procesos de usuario.
+Los estados **New y Exit definirán el grado de multiprogramación** del S.O.
+
+Ejemplo: Windows Vista Starter solo dejaba crear 3 procesos de usuario. (El impacto de los estados New y Exit era muy grande)
 
 ### De Medio Plazo
 
-* Ready/Suspended
-* Bloqued/Suspended
+Principal foco en los estados:
 
-Para que muchos procesos no usen tantos recursos de memoria u otros recursos se suspenden los procesos pasandolos a un alamacenamiento intermedio (Swap)
+* **Ready Suspended**
+* **Bloqued Suspended**
 
+Se **supenden los procesos** para que no usen tanta memoria u otros recursos, pasándolos a un almacenamiento de intercambio (**swap**).
 
 ### De corto plazo
-Estados implicados:  
-* Ready
-* Running
-* Bloqued
 
-Es la planificacion mas frecuente que utiliza el SO.
+Principal foco en los estados:  
 
-### Tipos planificacion
-* Decide cual es el proceso que se debe ejecutar
-* Decide donde ubicar el PCB del proceso que estaba ejecutando.
+* **Ready**
+* **Running**
+* **Bloqued**
 
+Es la planificación **más frecuente** que utiliza el SO. De aquí en adelante **nos centraremos en este tipo de planificación**.
 
-## Criterios de Planificacion
+## Criterios de Planificación
 
-### Orientados al usuario/proceso
-Cuantitativos:
-* Tiempo de ejecucion
-* Tiempo de respuesta (cuando hago un clic al mouse, abir un archivo, etc)
+Deciden cuál es el **siguiente proceso** que se debe ejecutar. Tambien deciden **donde ubicar el PCB** del proceso que **deja de ejecutarse**.
+
+### Orientados al usuario (Proceso)
+
+**Prestaciones** cuantitativas:
+
+* Tiempo de ejecución
+* Tiempo de respuesta (Ej: tiempo que tarda en abrir una carpeta desde que di click con el mouse)
 * Tiempo de espera
 
-Cualitativos:
+**Prestaciones** cualitativas:
+
 * Previsibilidad
 
+### Orientados al Sistema
 
-### Orientados al sistema
-Cuantitativos:
+**Prestaciones** cuantitativas:
+
 * Tasa de procesamiento (rendimiento)
-* Utilizacion del CPU %
+* Utilización del CPU (%)
 
-Cualitativos:
-* Equidad
-* Imposicion de prioridades
-* Equlibrado de recursos
+**Prestaciones** cualitativas:
 
+* **Equidad** de tiempo de ejecución
+* Imposición de **prioridades**
+* Equlibrar **recursos**
 
+# Algoritmos de planificación
 
-### Algoritmos de planificacion
+Algoritmos que utliiza el módulo de planificación del S.O para tomar desiciones de planificación. Existen varios y **se pueden alternar** dependiendo de los requerimientos del planificador.
 
-#### Por prioridad
-* A cada proceso se le asigna una prioridad
-* La prioridad de un proceso puede variar
-* Desicion del proximo proceso a ejecutar sera el de maxima prioridad
+Funcionamiento:
 
+* A cada proceso se le asigna una **prioridad**
+* La prioridad de un proceso **puede variar**
+* El próximo proceso a ejecutar sera el de **máxima prioridad**
 
-#### FIFO
+## Simultaneidad de eventos en Ready
 
+Si varios procesos **pasan a Ready simultáneamente**, se **ordenarán** por la siguiente **prioridad** (**Aplica a varios algoritmos**) :
+
+1) **Interrupción por Clock**
+2) Interrupción por finalización de evento
+3) Transición de estado **Nuevo** -> Listo
+
+## Categorías de algoritmos de planificación
+
+### Sin desalojo (Sin expulsión de estado Running)
+
+* FIFO
+* SJF
+* HRRN
+
+### Con desalojo (Con expulsión)
+
+* SRT (SFJ con desalojo)
+* Round Robin
+* Virtual Round Robin
+
+### Mixtos
+
+* Colas Multinivel
+* Colas Multinivel Retroalimentado
+
+## FIFO (First In First Out)
+
+* Los procesos se ejecutan por **orden de llegada** a la cola de Ready
 * El primero que llega es el primero en ejecutarse
-* Se ejecuta por orden de llegada a la cola de Ready
-* Los procesos solo salen de Running cuando hacen una syscall o finaliza
+* Los procesos **solo salen de Running cuando hacen una syscall o finaliza**
 
+## Short Job First (SJF sin desalojo o SPN)
 
-#### Short Job First (SJF sin desalojo o SPN)
-* El proceso con rafaga mas corta se ejecutara primero
-* Se fija cual proceso tiene la duracion mas corta(menos ciclos del cpu)
+* Se **ejecutará primero** el proceso con **ráfaga mas corta** (VER)
+* Se fija cuál proceso tiene la **duracion más corta**(menos ciclos del cpu).
 
-Nota: si hay dos procesos con la misma rafaga, se elige el primero que llegue a la lista, o por el numero del proces id (esto se hace desde la catedra)
+**Nota**: si hay dos procesos con la **misma ráfaga**, se elige el primero que llegó a la lista, o por el número del PID (éstos son criterios de la cátedra de la UTN, no es una tautología universal)
 
-Desventajas:
-* **Inanicion**: Situacion en la que a un proceso se le niega la posibilidad de utilizar un recurso (en este caso seria el cpu).
-* Si hay procesos con rafaga mas corta, puede que un proceso nunca se ejecute.
+### Desventajas
 
-### Como estimar la rafaga de un proceso
-* Por estadistica de usos de un proceso
-* Por **Formula del promedio exponencial**
+* **Inanición** (Si siempre hay procesos con ráfaga más corta, puede que un proceso nunca se ejecute)
 
-Notas: 
-* Para el uso del estimador de rafagas, se necesitaran guardar todas las rafagas anteriores para hacer los calculos.
+### ¿Cómo estimar la ráfaga de un proceso?
 
-* La estimacion inicial, sera un numero que el SO asigne por defecto para todos los procesos.
+* Por estadistíca de usos de un proceso
+* Por **Fórmula del promedio exponencial**
 
-* Si ya vengo ejecutando tomare los datos que ya tengo como referencia
+TODO: INSERTAR IMAGEN DEL PROMEDIO EXPONENCIAL
 
-## Categorias de algoritmos
+#### Notas
 
-* Sin desalojo (Sin expulsion) : FIFO y SJF
-* Con desalojo (Con expulsion) : SRT (SFJ con desalojo), Round Robin
+* Para el uso del **estimador de ráfagas**, se necesitarán guardar todas las ráfagas anteriores para usarlas como referencias.
+* La **estimación inicial**, será un numero que el S.O. asigne **por defecto** para **todos los procesos**.
 
+## SJF con desalojo
 
-### SJF con desalojo
-* Mientras se ejecuta un proceso 1, si la rafaga restante que le queda por ejecutar es menor a un proceso en Ready con una rafaga mas corta, se sacara al proceso 1 de ejecucion y se pondra en la cola de Ready.
+Si mientras ejecuta un proceso **A**, su **ráfaga restante** es mayor a la ráfaga de un proceso **B** en Ready, se pone a ejecutar B y A se pone en Ready.
 
-Notas: si lo que queda del proceso actual es igual a una rafaga en espera, se seguira ejecutando el proceso en CPU (Esto es decicion de la catedra)
+**Nota**: si lo que queda del proceso actual **es igual a una rafaga en espera**, se seguirá ejecutando el proceso en CPU (Ésto es decicion de la cátedra)
 
+## Round Robin
 
-### Round Robin
-* Colas de procesos Ready es FIFO
-* Cuanto o rodaja de tiempo(quantum)
-* Hay un tiempo determinado en el que el proceso se interrumpira (se le acaba el quantum de tiempo), y pasara al estado de listo. (Interrupcion por clock o quantum)
+* La cola de **Ready** se comporta cómo **FIFO**
+* Existe **Quantum**: pequeño intervalo de tiempo que se asigna a un proceso para usar el CPU
+* Terminado el **quantum** de tiempo, el proceso **pasará al estado de listo**. (Se produce una **interrupción por clock**)
 
-Desventajas segun Quantums usados:
-* q=1: A pesar de ser justo, produce mucho OverHead.
-* q<=4: Termina con tiempos muy largos y resulta casi lo mismo que hacer fifo(no se aprovecha el desalojo)
+**Desventajas según tamaño** del Quantum:
 
+* **q = 1**: A pesar de ser justo, produce **mucho overhead**.
+* **q <= 4**: Tiempos muy **largos** y **no se aprovecha el desalojo** (resulta casi lo mismo que hacer FIFO)
 
-### Virtual Round Robin (VVR)
-* Tratan de beneficiar a los IO bound
-VER (copiar los que faltan)
+## Virtual Round Robin (VRR)
 
-* Los procesos que salen de bloqueados van a la cola Auxiliar
-* Los procesos de la cola Auxiliar tienen mas prioiridad que los de la cola de Listos
-* Si bien los que van a la cola Auxiliar tienen mas prioridad, su quantum sera igual a lo que le quedaba de quantum antes de ser interrumpidos(Quantum mas chico, es decir, mas prioridad, pero tampoco para que se pasen de vivos)
-* Si un proceso pasa a bloqueado y su quantum restante es cero, entonces pasara a estado de Ready y no a Auxiliar.
-* Si un proceso de Auxiliar pasa a CPU y luego a bloqueado nuevamente (de manera seguida), su quantum sera el quantum anterior que le quedaba menos lo que ejecuto en el CPU.
+Algoritmo **con desalojo**. Trata de **beneficiar** a los procesos que fueron **bloqueados**, por eso los **IO bound** (que hacen varias interrupciones por recursos) se ven beneficiados.  
 
+* Desalojo por **Quantum** (interrupción por clock)
+* Existen **dos colas de procesos Listos** (se incluye cola **"Auxiliar"**)
 
-### Simultaneidad de eventos en Ready (aplica en varios algoritmos)
-Los procesos se ordenaran por la siguiente prioridad
-1) Interrupcion por Clock pasa a Listo  
-2) Interrupcion por finalizacion de evento pasa a Listo  
-3) Pasar de estado Nuevo a Listo 
+Funcionamiento:
 
+* Los procesos que tienen **interrupción por Quantum** van a **Ready**
+* Los procesos que **salen de Bloqueados**  van a la cola **Auxiliar**
+* Los **procesos** de la cola **Auxiliar** tienen **más prioridad** que los de la cola **Ready**
+* El **quantum** de los procesos de la cola **Auxiliar** será igual su **quantum restante** (q* = q - tiempo en CPU)
 
+Notas:
 
+* Si un proceso **sale de bloqueado** y su quantum restante **es cero**, entonces pasará a estado de **Ready y no a Auxiliar**.
+* Si un proceso pasa de **Auxiliar** -> **Running** -> **Bloqueado nuevamente** -> **Auxiliar nuevamente**, su quantum será el quantum anterior que le quedaba menos lo que ejecutó en el CPU.
 
-### HRRN (Primero el de mayor tasa de respuesta)
-* Sin desalojo
-* Aging (envejecimientos): Mecanismo que aumenta la prioridad del proceso con el paso del tiempo en ready, previene la inanicion.
-* La tasa de respuesta es un calculo que implica el tiempo en Ready y el tiempo de rafaga estimado
-* Prioriza a los que estan mayor tiempo en Ready y con tiempo de rafaga mas chico.
+## HRRN (Primero el de mayor Tasa de Respuesta)
 
->> Formula aqui
+Algoritmo **sin desalojo**, que prioriza los **procesos con mayor tiempo en Ready y ráfaga más chica**.
 
-### Colas multinivel
+* **Aging** (Envejecimiento): Mecanismo que aumenta la prioridad del proceso con el paso del tiempo. **Previene la inanición**.
+* **Tasa de Respuesta**: Es un cálculo que implica el tiempo en Ready y el tiempo de rafaga estimado
+
+#### Tasa de Respuesta
+
+ R =  $\frac{TiempoReady}{TiempoCPU + R.Anterior}$
+
+W = Tiempo esperando en Ready  
+S = Tiempo de CPU esperado  
+R = Tasa de respuesta
+
+## Colas Multinivel
 
 Se clasifican los procesos por tipos en diferentes colas.
-* Hay colas que tendran mas prioridad que otras
-* Cada cola usa su propio algoritmo de planificacion
-* Las colas pueden tener distintos criterios
+**Cada cola** usa su **propio algoritmo de planificación**
 
-### Colas de Priodidades
-(Copiar) No esta en el 
+* Hay colas que tendran más prioridad que otras
+* Las colas pueden tener **distintos criterios**
 
+## Colas Multinivel Retroalimentado (Feedback multinivel)
 
-### Colas Multinivel Retroalimentado(Feedback multinivel)
-Parecido al de colas multinivel solo que
-* Un proceso que entra desde Nuevo, pasa a la cola de maxima prioridad
-* Pueden existir reglas para pasar los procesos a otras colas segun algun criterio que se quiera.
+Algoritmo parecido al de **colas multinivel**, sólo que:
 
-### Hilos
-Se lanza el hilo con TID mas corto antes? Porque en el ejemplo no se basaban en las rafagas de los hilos.
-* por convencion de la catedra: 
+* Un proceso que entra **desde Nuevo**, pasa a la cola de **máxima prioridad**
+* Pueden **existir reglas** para poder pasar los procesos a otras colas, según algun criterio especificado.
 
+## Planificación de Hilos
 
-* Preguntar por los proceso o hilos por defecto
+Los hilos **KLT son tratados como procesos**, y su planificación estará dada por el **algoritmo de planificación del S.O.**.
 
-* Syscall pasan o no por la biblioteca?
-* Hay Jacketing?
-Consultar en la proxima clase
+Los **ULT** no son reconocidos por el S.O, por lo que si no usan Jacketing, la primer interrupción que lance un hilo, bloqueará todo el proceso.  
+Los **ULT** usan su propia **planificación interna**, y por fuera, el **proceso entero es planificado por el S.O.**
 
+**Nota**: Por convención de la cátedra de Sistemas Operativos, a menos que se indiquen, los ULT **no usarán Jacketing**.
 
 Nota: Recordar que si  un proceso se corta por clock va a Ready, no a bloqueados
 
+- - -
+  
+Referencias:
 
+* Sistemas Operativos 5ta Edición (Parte 4) - Willian Stallings
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### Recomendaciones de la catedra
-* Resolver toda la guia de ____
-* Ver parciales anteriores para ver el nivel que se espera
-
-
+* <https://en.wikipedia.org/wiki/CPU-bound>
+* <https://www.udg.co.cu/cmap/sistemas_operativos/planificacion_cpu/sjf/sjf.html>
