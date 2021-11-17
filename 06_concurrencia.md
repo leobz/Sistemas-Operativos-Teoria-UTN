@@ -1,4 +1,4 @@
-# Capítulo 6: Sincronización
+# Capítulo 6: Concurrencia: Sincronización y Mutua Exclusión
 
 ## Concurrencia de procesos
 
